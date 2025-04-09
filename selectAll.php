@@ -13,17 +13,29 @@
 
 	// TO be populated with html for generating the tables
 	$userTable = "";
-	$postTable = "<";
+	$postTable = "";
 
-	$sql = "select * from achitic_user";
+	$sqlGetUsers = "select * from achitic_user";
 
-	$result = $mysqli->query( $sql );
+	$userResult = $mysqli->query( $sqlGetUsers );
 
-	while( $row = $result->fetch_assoc() ) {
-		$userRow = "<tr><td>".$row['email']."</td><td>".$row['age']."</td><td>".$row['state']."</td></tr>\n";
-		$userTable = $userTable.$userRow;
+	while( $row = $userResult->fetch_assoc() ) {
+		$userRow = "<tr><td>".$row['email']."</td><td>".$row['age']."</td><td>".$row['state']."</td></tr>";
+		$userTable .= $userRow;
+		$userTable .= "\n";
 	}
 
-	include( "selectAll.html" );
+	
+	$sqlGetPosts = "select * from achitic_post";
+	echo "$sqlGetPosts";
 
+	$postResult = $mysqli->query( $sqlGetPosts );
+
+	while( $row = $postResult->fetch_assoc() ) {
+		$postRow = "<tr><td>".$row['id']."</td><td>".$row['body']."</td><td>".$row['likes']."</td><td>".$row['email']."</td><td>".$row['parentId']."</td><td>".$row['datePosted']."</td><td>".$row['threadId']."</td></tr>\n";
+		$postTable = $postTable.$postRow;
+	}
+	
+	include( "selectAll.html" );
+	
 ?>
