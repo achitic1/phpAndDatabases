@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Retrieve Post</title>
+	</head>
+
+	<body>
+		<form action="retrievePost.php" method="get">
+			Post ID:<input type="number" min="1" id="postId" name="postId">
+			<button type="submit">RetrievePost</button>
+		</form>
+
+		<?= $threadTable ?>
+	</body>
+</html>

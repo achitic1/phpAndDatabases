@@ -1,4 +1,5 @@
 <?php 
+	require_once( "utils.php" );
 	include( "Constants.php" );
 	$user = Constants::USER;
 	$password = Constants::PASSWORD;
@@ -24,7 +25,7 @@
 		return;
 	}
 
-
+/*
 	// Go through a sequence of parent ids until null is hit meaning it is the beginning of the thread
 	$currParentId = $parentId;
 	$threadId = $parentId;
@@ -42,8 +43,31 @@
 			$result = $mysqli->query( "select * from achitic_post where id = $currParentId" );
 		}
 	}
+ */
+	$threadId = getThreadId( $mysqli, $parentId );
 
 	// Inserting the reply into the post table
 	$sql = "insert into achitic_post (body, email, parentId, threadId) values (\"$body\", \"$email\", $parentId, $threadId)";
 	$mysqli->query( $sql );
+
+/*	function getThreadId( $mysqli, $parentId ) {
+		$currParentId = $parentId;
+		$threadId = $parentId;
+		$isNotNull = true;
+		$result = $mysqli->query( "select * from achitic_post where id = $currParentId" );
+
+		while( $isNotNull ) {
+			$row = $result->fetch_assoc();
+			$currParentId = $row['parentId'];
+
+			if( $currParentId === NULL ) {
+				$isNotNull = false;
+			} else {
+				$threadId = $currParentId;
+				$result = $mysqli->query( "select * from achitic_post where id = $currParentId" );
+			}
+		}
+
+		return $threadId;
+}*/
 ?>

@@ -6,11 +6,6 @@
 	$database = "cmsc436s23_424class";
 	$mysqli = new mysqli( $server, $user, $password, $database );
 
-	if( $mysqli->connect_error )
-		echo "Error Connecting\n";
-	else 
-		echo "Connecting successfully\n";
-
 	// TO be populated with html for generating the tables
 	$userTable = "";
 	$postTable = "";
@@ -27,7 +22,6 @@
 
 	
 	$sqlGetPosts = "select * from achitic_post";
-	echo "$sqlGetPosts";
 
 	$postResult = $mysqli->query( $sqlGetPosts );
 
